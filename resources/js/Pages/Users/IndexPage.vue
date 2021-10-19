@@ -44,7 +44,7 @@
                     <td class="p-2 border border-gray-500">#</td>
                     <td class="p-2 border border-gray-500">Name</td>
                     <td class="p-2 border border-gray-500">Email</td>
-                    <td class="p-2 border border-gray-500">Action</td>
+                    <td class="p-2 border border-gray-500">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,9 +53,14 @@
                     <td class="p-2 border border-gray-500">{{ user.name }}</td>
                     <td class="p-2 border border-gray-500">{{ user.email }}</td>
                     <td class="p-2 border border-gray-500">
-                        <button class="py-2 px-4 bg-blue-500 text-white rounded" @click="">
-                            Pay
-                        </button>
+                        <div class="flex space-x-3">
+                            <button class="py-2 px-4 bg-blue-500 text-white rounded" @click="">
+                                Pay
+                            </button>
+                            <button class="py-2 px-4 bg-red-600 text-white rounded" @click="deleteUser(user.id)">
+                                Delete
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
@@ -91,15 +96,26 @@ export default {
             password_confirmation: '',
         })
 
-        const { users, getUsers, storeUser, currentUser } = useUsers()
+        const { users, getUsers, storeUser, destroyUser } = useUsers()
         const pay = () => {
 
+        }
+
+        const deleteUser = (userId) => {
+            if (window.confirm('Are you sure?')) {
+                destroyUser(userId).then(res => {
+                    alert('deleted')
+                }).catch(err => {
+                    alert(err)
+                })
+            }
         }
 
         const createUser = () => {
             storeUser(form).then(res => {
                 alert('created')
                 showModal.value = false
+                errors.value = []
             }).catch(err => {
                 errors.value = err.response.data.errors
             })
@@ -112,6 +128,7 @@ export default {
             showModal,
             pay,
             createUser,
+            deleteUser,
         }
     }
 }

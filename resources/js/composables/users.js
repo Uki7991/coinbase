@@ -50,6 +50,10 @@ export default function useUsers() {
         return store.dispatch('storeUser', data)
     }
 
+    const destroyUser = (userId) => {
+        return store.dispatch('destroyUser', userId)
+    }
+
     const logout = () => {
         store.dispatch('logout')
         router.push({ name: 'home' })
@@ -62,6 +66,7 @@ export default function useUsers() {
         register,
         getUsers,
         storeUser,
+        destroyUser,
         getCurrentUser,
         logout
     }

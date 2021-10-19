@@ -5,7 +5,6 @@ export default {
         axios.get('/api/users').then(res => {
             context.commit('setUsers', res.data.users)
         }).catch(err => {
-            console.log(err)
         })
     },
     storeUser(context, data) {
@@ -15,7 +14,16 @@ export default {
                 context.dispatch('getUsers')
             }).catch(err => {
                 reject(err)
-                console.log(err)
+            })
+        })
+    },
+    destroyUser(context, userId) {
+        return new Promise((resolve, reject) => {
+            axios.delete('/api/users/'+userId).then(res => {
+                resolve(res)
+                context.dispatch('getUsers')
+            }).catch(err => {
+                reject(err.response)
             })
         })
     },
