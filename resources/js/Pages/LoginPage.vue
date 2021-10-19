@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-100 py-32">
-        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="login(form)">
+        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="authenticate">
             <h1 class="font-bold mb-4">Login</h1>
             <div class="mb-4">
                 <label for="email">Email</label>
@@ -32,10 +32,18 @@ export default {
         const errors = ref(null)
         const { login } = useUsers()
 
+        const authenticate = () => {
+            login(form).then(res => {
+                errors.value = [];
+            }).catch(err => {
+                errors.value = err.data.errors
+            })
+        }
+
         return {
             form,
             errors,
-            login,
+            authenticate,
         }
     }
 }

@@ -84,6 +84,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $user->payments()->delete();
         $user->delete();
 
         return response('', 204);

@@ -7,23 +7,29 @@ export default function useUsers() {
     const currentUser = computed(() => store.state.currentUser)
 
     const login = (data) => {
-        axios.post('/api/login', data).then(res => {
-            storeToken(res.data.token)
-            getCurrentUser()
-            router.push({ name: 'home' })
-        }).catch(res => {
-            errors.value = res.response.data.errors
+        return new Promise((resolve, reject) => {
+            axios.post('/api/login', data).then(res => {
+                resolve(res)
+                storeToken(res.data.token)
+                getCurrentUser()
+                router.push({ name: 'home' })
+            }).catch(res => {
+                reject(res.response)
+            })
         })
     }
 
     const register = (data) => {
-        axios.post('/api/register', data).then(res => {
-            storeToken(res.data.token)
-            login(data)
-            getCurrentUser()
-            router.push({ name: 'home' })
-        }).catch(error => {
-            errors.value = error.response.data.errors
+        return new Promise((resolve, reject) => {
+            axios.post('/api/register', data).then(res => {
+                resolve(res)
+                storeToken(res.data.token)
+                login(data)
+                getCurrentUser()
+                router.push({ name: 'home' })
+            }).catch(error => {
+                reject(error.response)
+            })
         })
     }
 

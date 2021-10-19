@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-100 py-32">
-        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="register(form)">
+        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="createUser">
             <h1 class="font-bold mb-4">Register</h1>
             <div class="mb-4">
                 <label for="name">Name</label>
@@ -45,10 +45,18 @@ export default {
 
         const { register } = useUsers()
 
+        const createUser = () => {
+            register(form).then(res => {
+                errors.value = []
+            }).catch(err => {
+                errors.value = err.data.errors
+            })
+        }
+
         return {
             form,
             errors,
-            register,
+            createUser,
         }
     }
 }
