@@ -1,10 +1,10 @@
 <template>
-    <p class="text-lg bg-red-400">hello world</p>
-    <p>dawdawd</p>
+    welcome page
 </template>
 
 <script>
 export default {
+    name: "WelcomePage"
 }
 </script>
 
