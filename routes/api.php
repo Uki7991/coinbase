@@ -21,4 +21,6 @@ Route::post('/logout', \App\Http\Controllers\API\Auth\LogoutController::class);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::middleware('auth:sanctum')->get('/current-user', [\App\Http\Controllers\API\UserController::class, 'currentUser']);
     Route::apiResource('users', \App\Http\Controllers\API\UserController::class);
+    Route::post('/pay', [\App\Http\Controllers\API\PaymentController::class, 'pay']);
+    Route::resource('payments', \App\Http\Controllers\API\PaymentController::class);
 });

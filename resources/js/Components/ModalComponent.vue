@@ -2,8 +2,8 @@
     <transition name="modal">
         <div class="modal-mask">
             <div class="modal-wrapper">
-                <div class="modal-container" :class="classNames">
-
+                <div class="modal-container relative" :class="classNames">
+                    <p @click="$emit('close')" class="cursor-pointer absolute right-4 top-4">x</p>
                     <div class="modal-header">
                         <slot name="header">
                             default header

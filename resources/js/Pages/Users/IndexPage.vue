@@ -54,7 +54,7 @@
                     <td class="p-2 border border-gray-500">{{ user.email }}</td>
                     <td class="p-2 border border-gray-500">
                         <div class="flex space-x-3">
-                            <button class="py-2 px-4 bg-blue-500 text-white rounded" @click="">
+                            <button class="py-2 px-4 bg-blue-500 text-white rounded" @click="pay(user.id)">
                                 Pay
                             </button>
                             <button class="py-2 px-4 bg-red-600 text-white rounded" @click="deleteUser(user.id)">
@@ -97,8 +97,14 @@ export default {
         })
 
         const { users, getUsers, storeUser, destroyUser } = useUsers()
-        const pay = () => {
-
+        const pay = (user_id) => {
+            axios.post('/api/pay', {
+                user_id: user_id
+            }).then(res => {
+                window.open(res.data.payment.hosted_url, '_blank');
+            }).catch(err => {
+                console.log(err.response.data)
+            })
         }
 
         const deleteUser = (userId) => {

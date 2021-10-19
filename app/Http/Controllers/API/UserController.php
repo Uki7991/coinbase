@@ -6,7 +6,9 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -22,10 +24,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $users = Cache::remember('usersList', Carbon::now()->addMinutes(5), function () use ($request) {
+            return User::with('payments')->get()->except($request->user()->id);
+        });
+
         return response()->json([
-            'users' => User::all()->except(auth()->user()->id)
+            'users' => $users,
         ]);
     }
 
@@ -38,6 +44,7 @@ class UserController extends Controller
     public function store(Request $request, CreateNewUser $createNewUserAction)
     {
         $user = $createNewUserAction->create($request->all());
+        Cache::forget('usersList');
 
         return response()->json([
             'user' => $user,
