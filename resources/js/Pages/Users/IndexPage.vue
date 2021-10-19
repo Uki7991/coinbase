@@ -48,21 +48,28 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="hover:bg-gray-50" v-for="(user, userIndex) in users" :key="userIndex">
-                    <td class="p-2 border border-gray-500">{{ user.id }}</td>
-                    <td class="p-2 border border-gray-500">{{ user.name }}</td>
-                    <td class="p-2 border border-gray-500">{{ user.email }}</td>
-                    <td class="p-2 border border-gray-500">
-                        <div class="flex space-x-3">
-                            <button class="py-2 px-4 bg-blue-500 text-white rounded" @click="pay(user.id)">
-                                Pay
-                            </button>
-                            <button class="py-2 px-4 bg-red-600 text-white rounded" @click="deleteUser(user.id)">
-                                Delete
-                            </button>
+                <template v-for="(user, userIndex) in users" :key="userIndex">
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-2 border border-gray-500">{{ user.id }}</td>
+                        <td class="p-2 border border-gray-500">{{ user.name }}</td>
+                        <td class="p-2 border border-gray-500">{{ user.email }}</td>
+                        <td class="p-2 border border-gray-500">
+                            <div class="flex space-x-3">
+                                <button class="py-2 px-4 bg-blue-500 text-white rounded" @click="pay(user.id)">
+                                    Pay
+                                </button>
+                                <button class="py-2 px-4 bg-red-600 text-white rounded" @click="deleteUser(user.id)">
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <div v-for="(payment, paymentIndex) in user.payments" :key="paymentIndex">
+                            <p>{{payment.title}} - {{payment.amount + payment.currency}}</p>
                         </div>
-                    </td>
-                </tr>
+                    </tr>
+                </template>
                 </tbody>
             </table>
 

@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use CoinbaseCommerce\ApiClient;
 use CoinbaseCommerce\Resources\Charge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PaymentController extends Controller
 {
@@ -29,6 +30,8 @@ class PaymentController extends Controller
         ]);
 
         $payment = $paymentService->createPayment($user, $charge);
+
+        Cache::forget('usersList');
 
         return response()->json([
             'payment' => $payment,
