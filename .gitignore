@@ -16,3 +16,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .idea/
+public/mix-manifest.json
+public/js/app.js
+public/css/app.css
