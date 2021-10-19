@@ -91,7 +91,7 @@ export default {
             password_confirmation: '',
         })
 
-        const { users, getUsers, storeUser } = useUsers()
+        const { users, getUsers, storeUser, currentUser } = useUsers()
         const pay = () => {
 
         }

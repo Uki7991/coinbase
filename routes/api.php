@@ -18,5 +18,7 @@ Route::post('/register', \App\Http\Controllers\API\Auth\RegisterController::clas
 Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class);
 Route::post('/logout', \App\Http\Controllers\API\Auth\LogoutController::class);
 
-Route::middleware('auth:sanctum')->get('/current-user', [\App\Http\Controllers\API\UserController::class, 'currentUser']);
-Route::apiResource('users', \App\Http\Controllers\API\UserController::class);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::middleware('auth:sanctum')->get('/current-user', [\App\Http\Controllers\API\UserController::class, 'currentUser']);
+    Route::apiResource('users', \App\Http\Controllers\API\UserController::class);
+});
