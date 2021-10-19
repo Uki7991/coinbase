@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::view('/register', 'layouts.app');
+
 Route::get('/', function () {
     return view('layouts.app');
 });
+
+Route::view('/{any}', 'layouts.app')->where('any', '.*');
