@@ -1,6 +1,6 @@
 export default {
     setUsers(state, payload) {
-        state.users = payload.users
+        state.users = payload
     },
     setCurrentUser(state, payload) {
         state.currentUser = payload

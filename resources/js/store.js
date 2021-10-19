@@ -9,12 +9,6 @@ export default createStore({
             ...userState,
         }
     },
-    getters: {
-        currentUser: (state) => {
-            console.log(state)
-            return state.currentUser
-        }
-    },
     mutations: {
         ...userMutations
     },

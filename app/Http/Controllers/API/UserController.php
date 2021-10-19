@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -21,7 +24,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'users' => User::all()->except(auth()->user()->id)
+        ]);
     }
 
     /**
@@ -30,9 +35,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CreateNewUser $createNewUserAction)
     {
-        //
+        $user = $createNewUserAction->create($request->all());
+
+        return response()->json([
+            'user' => $user,
+        ]);
     }
 
     /**

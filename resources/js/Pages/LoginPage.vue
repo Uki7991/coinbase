@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-100 py-32">
-        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="login">
+        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="login(form)">
             <h1 class="font-bold mb-4">Login</h1>
             <div class="mb-4">
                 <label for="email">Email</label>
@@ -30,17 +30,7 @@ export default {
             password: '',
         })
         const errors = ref(null)
-        const { storeToken, getCurrentUser } = useUsers()
-
-        const login = async () => {
-            await axios.post('/api/login', form).then(res => {
-                storeToken(res.data.token)
-                getCurrentUser()
-                router.push({ name: 'home' })
-            }).catch(res => {
-                errors.value = res.response.data.errors
-            })
-        }
+        const { login } = useUsers()
 
         return {
             form,

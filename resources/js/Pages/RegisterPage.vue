@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-100 py-32">
-        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="register">
+        <form class="p-4 rounded bg-white w-96 mx-auto" @submit.prevent="register(form)">
             <h1 class="font-bold mb-4">Register</h1>
             <div class="mb-4">
                 <label for="name">Name</label>
@@ -43,17 +43,7 @@ export default {
 
         const errors = ref(null);
 
-        const { storeToken, getCurrentUser } = useUsers()
-
-        const register = async () => {
-            await axios.post('/api/register', form).then(res => {
-                storeToken(res.data.token)
-                getCurrentUser()
-                router.push({ name: 'home' })
-            }).catch(error => {
-                errors.value = error.response.data.errors
-            })
-        }
+        const { register } = useUsers()
 
         return {
             form,

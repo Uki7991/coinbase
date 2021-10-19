@@ -1,5 +1,5 @@
 import WelcomePage from "./Pages/WelcomePage";
-import UsersPage from "./Pages/UsersPage";
+import UsersPage from "./Pages/Users/IndexPage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
 import { createRouter, createWebHistory } from "vue-router";

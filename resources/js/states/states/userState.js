@@ -1,4 +1,4 @@
 export default {
-    currentUser: null,
+    currentUser: localStorage.getItem('currentUser') || null,
     users: [],
 }
