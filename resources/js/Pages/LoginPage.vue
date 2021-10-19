@@ -30,11 +30,12 @@ export default {
             password: '',
         })
         const errors = ref(null)
-        const { storeToken } = useUsers()
+        const { storeToken, getCurrentUser } = useUsers()
 
         const login = async () => {
             await axios.post('/api/login', form).then(res => {
                 storeToken(res.data.token)
+                getCurrentUser()
                 router.push({ name: 'home' })
             }).catch(res => {
                 errors.value = res.response.data.errors

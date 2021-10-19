@@ -1,10 +1,21 @@
 <template>
     welcome page
+    <button @click="">
+        click
+    </button>
 </template>
 
 <script>
+import useUsers from "../composables/users";
+
 export default {
-    name: "WelcomePage"
+    setup() {
+        const { currentUser } = useUsers()
+
+        return {
+            currentUser,
+        }
+    }
 }
 </script>
 

@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', \App\Http\Controllers\API\Auth\RegisterController::class);
 Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class);
+Route::post('/logout', \App\Http\Controllers\API\Auth\LogoutController::class);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/current-user', [\App\Http\Controllers\API\UserController::class, 'currentUser']);

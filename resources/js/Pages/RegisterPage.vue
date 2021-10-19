@@ -43,11 +43,12 @@ export default {
 
         const errors = ref(null);
 
-        const { storeToken } = useUsers()
+        const { storeToken, getCurrentUser } = useUsers()
 
         const register = async () => {
             await axios.post('/api/register', form).then(res => {
                 storeToken(res.data.token)
+                getCurrentUser()
                 router.push({ name: 'home' })
             }).catch(error => {
                 errors.value = error.response.data.errors
